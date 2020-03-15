@@ -1,0 +1,35 @@
+<div class="container">
+  <div class="products">
+    <ul class="edit_products_form">
+      <%= form_for @product, url: product_edit_path(@product.id), method: :post do |f| %>
+        <div class="field">
+          <li><%= f.label :name, "商品名" %></li>
+          <%= f.text_area :name %>
+        </div>
+        <div class="textarea_wrap">
+          <li><%= f.label :description, "説明" %></li>　
+          <%= f.text_area :description %>
+        </div>
+        <div class="field">
+        　<li><%= f.label :category, "カテゴリー" %></li>
+        　<%= f.collection_select :category, Category.all ,:id ,:name, include_blank: false %>
+        </div>
+        <div class="field">
+          <li><%= f.label :price, "価格" %></li>
+          <%= f.number_field :price, min: 0 %>
+        </div>
+        <div class="file_wrap">
+          <li><%= f.label :image1, "画像1" %></li>
+          <%= f.file_field :image1 %>
+          <li><%= f.label :image2, "画像2" %></li>
+          <%= f.file_field :image2 %>
+          <li><%= f.label :image3, "画像3" %></li>
+          <%= f.file_field :image3 %>
+        </div>
+        <div class="btn_wrap">
+          <%= f.submit "送信する" %>
+        </div>
+      <% end %>
+    </ul>
+  </div>
+</div>

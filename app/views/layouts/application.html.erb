@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Market</title>
+      <%= csrf_meta_tags %>
+      <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+      <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+      <%= stylesheet_link_tag 'https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css' %>
+  </head>
+  <body class="logined">
+      <header class="global_header">
+        <div class="icon">
+          <%= link_to lists_path do %>
+            <i class="fa fa-shopping-cart"> market</i>
+          <% end %>
+        </div>
+      <form class="search">
+        <input type="text" placeholder="検索ワードを入力" name="word" value="">
+      </form>
+      <ul class="menu">
+        <li>
+          <%= link_to new_path do %>
+            <i class ="fa fa-upload"> 出品する</i>
+          <% end %>
+        </li>
+        <li>
+          <%= link_to top_path do %>
+            <i class="fa fa-user-o"> マイページ</i>
+          <% end %>
+        </li>
+      </ul>
+      </header>
+    <%= yield %>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <% flash.each do |type, message| %>
+      <div class="alert alert-<%= type %>"><%= message %></div>
+    <% end %>
+    <script>
+      window.setTimeout(function() {
+      $(".alert").slideUp();
+      }, 3000);
+    </script>
+    <footer class="global_footer">
+      <div class = "privacy">
+        <ul id="sitemap">
+          <li><a href="#">プライバシーポリシー</a></li>
+          <li><a href="#">特定商取引に基づく表示</a></li>
+          <li><a href="#">利用規約</a></li>
+          <li><a href="#">サイトマップ</a></li>
+        </ul>
+      </div>
+    </footer>
+    </body>
+</html>

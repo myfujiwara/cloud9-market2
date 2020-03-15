@@ -1,0 +1,47 @@
+<div class="container">
+  <div class = "products">
+    <%= form_for @product, url: payment_path(@product.id), method: :post do |f| %>
+      <p><%= @product.name %></p>
+      <div class = img>
+        <%= image_tag image1_url(@product) %>
+        <%= image_tag image2_url(@product) %>
+        <%= image_tag image3_url(@product) %>
+      </div>
+      <p><%= @product.price %></p>
+      <p><%= @product.description %></p>
+      <div class="button_wrap">
+        <% if @product.status == 0 %>
+          <%= button_to "購入する", "/markets/#{@product.id}/payment" %>
+        <% else %>
+          <%= button_to "購入する",  "/markets/#{@product.id}/payment", {disabled: true} %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+  
+  <div class = "dsearch">
+   <%= form_tag lists_path, method: :get do %>
+    <h2>詳細検索</h2>
+      <div class="field">
+        <p>キーワード追加</p>
+        <%= text_field_tag :word, params[:word], placeholder: "商品名" %>
+      </div>
+      <div class="field">
+        <p>カテゴリー検索</p>
+        <%= select_tag :category, options_for_select(Category.pluck(:name, :id),params[:category]), include_blank: true %>
+      </div>
+      <div class="field">
+        <p>価格</p>
+        <%= text_field_tag :price_low, params[:price_low], placeholder: "100" %>
+        <p>～</p>
+        <%= text_field_tag :price_high, params[:price_high], placeholder: "1000" %>
+      </div>
+      <div class="field">
+        <p>並び替え</p>
+         <%= select_tag :change, options_for_select("価格の高い順": "price desc","価格の安い順": "price asc","新しい順": "id desc","古い順":"id asc"), include_blank: true %>
+      </div>
+      <div class="btn_wrap">
+        <%= submit_tag "検索" %>
+      </div>
+    <% end %>
+</div>

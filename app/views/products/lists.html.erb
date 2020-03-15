@@ -1,0 +1,62 @@
+<div class="container"> 
+  <% if @products.any? %>
+    <div class="products">
+      <ul>
+        <% @products.each do |product| %>
+          <li>
+            <div class="image">
+              <%= link_to markets_path(product.id) do %>
+                <%= image_tag image1_url(product) %>
+              <% end %>
+            </div>
+          <p><%= product.name %></p>
+          <p><%= product.price %></p>
+          <% if product.status == 0 %>
+            <p></p>
+          <% else %>
+            <p>売り切れ</p>
+          <% end %>
+          </li>
+            <div class="action">
+              <%= link_to like_product_path(product) do %>
+                <i class="fa <%= product.like_from?(current_user)? "fa-heart active" : "fa-heart-o" %>"></i>
+              <% end %>
+            </div>
+        <% end %>
+      </ul>
+    </div>
+  <% else %>
+    <p class="empty">対象の商品は見つかりませんでした。</p>
+  <% end %>
+  
+<div class = "dsearch">
+ <%= form_tag lists_path, method: :get do %>
+  <h2>詳細検索</h2>
+    <div class="field">
+      <p>キーワード追加</p>
+      <!--<input type="text" name="keyword" placeholder="商品名">-->
+      <%= text_field_tag :word, params[:word], placeholder: "商品名" %>
+    </div>
+    <div class="field">
+      <p>カテゴリー検索</p>
+      <!--<input type="category" name="category" placeholder="カテゴリー">-->
+      <%= select_tag :category, options_for_select(Category.pluck(:name, :id),params[:category]), include_blank: true %>
+    </div>
+    <div class="field">
+      <p>価格</p>
+      <!--<input type="price" name="price" placeholder="価格">-->
+      <%= text_field_tag :price_low, params[:price_low], placeholder: "100" %>
+      <p>～</p>
+      <%= text_field_tag :price_high, params[:price_high], placeholder: "1000" %>
+    </div>
+    <div class="field">
+      <p>並び替え</p>
+      <!--<input type="text" name="change" placeholder="並び替え(価格の高い順／価格の安い順／新しい順／古い順を指定して)">-->
+       <%= select_tag :change, options_for_select("価格の高い順": "price desc","価格の安い順": "price asc","新しい順": "id desc","古い順":"id asc"), include_blank: true %>
+    </div>
+    <div class="btn_wrap">
+      <!--<input type="search" value="検索">-->
+      <%= submit_tag "検索" %>
+    </div>
+  <% end %>
+</div>

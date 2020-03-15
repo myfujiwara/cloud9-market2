@@ -1,0 +1,42 @@
+<div class="container"> 
+   <% if @products.any? %>
+  <div class="products">
+    <ul>
+      <% @products.each do |product| %>
+        <li>
+         <div class="image">
+          <%= link_to details_path(product.id) do%>
+            <%= image_tag image1_url(product) %>
+          <% end %>
+         </div>
+          <p><%= product.name %></p>
+          <p><%= product.price %></p>
+        </li>
+      <% end %>
+    </ul>
+  </div>
+  <% else %>
+    <p class="empty">投稿がありません。</p>
+  <% end %>
+
+  <div class="my_page">
+    <h2>マイページ</h2>
+      <ul>
+        <li>
+          <%= link_to '出品する', '/users/products/new' %>
+        </li>
+        <li>
+          <%= link_to '出品中の商品', '/users/products' %>
+        </li>
+        <li>
+          <%= link_to 'お気に入り', '/users/likes' %>
+        </li>
+        <li>
+          <%= link_to 'プロフィール更新', '/users/profiles/edit' %>
+        </li>
+        <li>
+          <%= link_to 'サインアウト', '/users/sign_out' %>
+        </li>
+      </ul>
+  </div>
+</div>
