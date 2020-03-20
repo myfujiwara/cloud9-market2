@@ -66,7 +66,7 @@ class ProductsController < ApplicationController
       
      if @product.save
       flash[:success] = "出品しました。"
-      redirect_to ("/") and return
+      redirect_to ("/markets/#{@product.id}") and return
      else
       flash[:danger] = "出品に失敗しました。"
       redirect_to ("/users/products/new") and return

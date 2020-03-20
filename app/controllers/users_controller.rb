@@ -63,6 +63,7 @@ class UsersController < ApplicationController
     
     @user.name = params[:name]
     @user.comment = params[:comment]
+    
     if params[:user][:password].blank?
       params[:user].delete("password")
     else
@@ -81,7 +82,7 @@ class UsersController < ApplicationController
       end
     current_user.update(user_params.merge({image: upload_file.original_filename}))
     end
-      redirect_to("/") 
+      redirect_to("/users/profiles") 
   end
   
   private
