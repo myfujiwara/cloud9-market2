@@ -69,7 +69,6 @@ class UsersController < ApplicationController
     else
       @user.password = params[:password]
     end
-    current_user.update(user_params)
     
     upload_file = params[:user][:image]
     if upload_file.present?
@@ -82,11 +81,18 @@ class UsersController < ApplicationController
       end
     current_user.update(user_params.merge({image: upload_file.original_filename}))
     end
-      redirect_to("/users/profiles") 
+    
+    if @user.update(user_params)
+    flash[:success] = "プロフィール編集しました。"
+      redirect_to ("/users/profiles") and return
+    else
+    flash[:danger] = "プロフィール編集に失敗しました。"
+      redirect_to("/")
+    end
   end
   
   private
   def user_params
-    params.require(:user).permit(:name, :email, :password, :comment, :image)
+    params.require(:user).permit(:name, :email, :password, :comment, :image, :password_confirmation)
   end
 end
