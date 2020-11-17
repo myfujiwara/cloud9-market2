@@ -33,7 +33,7 @@ module UsersHelper
    if user.image.blank?
     "https://dummyimage.com/200x200/000/fff"
    else
-    "/users/#{user.image}"
+    "/users/#{@user.image}"
    end
   end
 end

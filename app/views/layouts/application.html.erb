@@ -15,7 +15,9 @@
           <% end %>
         </div>
       <form class="search">
-        <input type="text" placeholder="検索ワードを入力" name="word" value="">
+        <%= search_form_for @search, url:products_path do |f| %>
+          <%= f.text_field :name_cont, placeholder: "検索ワードを入力" %>
+        <% end %>
       </form>
       <ul class="menu">
         <li>

@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   
     before_action :authorize
- 
+  
   def lists
     @products = Product.all
     @products = @products.where("description like ? or name like ?", "%#{params[:word]}%", "%#{params[:word]}%") if params[:word].present?
